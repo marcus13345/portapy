@@ -1,11 +1,15 @@
 {
-  "name": "pythonjs",
-  "version": "1.0.0",
+  "name": "portapy",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "node postinstall.js"
+    "postinstall": "node postinstall.js",
+    "uninstall": "node uninstall.js"
+  },
+  "bin": {
+    "python": "bin/python.js"
   },
   "repository": {
     "type": "git",
@@ -15,6 +19,10 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/marcus13345/pythonjs/issues"
+  },
+  "dependencies": {
+    "python": "0.0.4",
+    "request": "2.88.0"
   },
   "homepage": "https://github.com/marcus13345/pythonjs#readme"
 }
