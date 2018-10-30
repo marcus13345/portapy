@@ -1,0 +1,19 @@
+{
+  "name": "pythonjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcus13345/pythonjs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcus13345/pythonjs/issues"
+  },
+  "homepage": "https://github.com/marcus13345/pythonjs#readme"
+}
