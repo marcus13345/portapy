@@ -20,6 +20,9 @@ async function download() {
 		try {
 			fs.mkdirSync('Python');
 		} catch(e) {'';}
+		try {
+			fs.writeFileSync('.installerLocation', filename);
+		} catch(e) {'';}
 		// let installSettings = fs.readFileSync('unattend.xml');
 
 		let out_file = `Python-Installer/${filename}`
@@ -30,7 +33,6 @@ async function download() {
 				uri: url,
 				encoding: null
 			}, function (error, response, body) {
-				console.log(typeof body);
 				fs.writeFileSync(out_file, body, {});
 				resolve();
 			});
@@ -86,7 +88,6 @@ function getPythonDownloadLink() {
 			let current_download_end = body.indexOf('">', current_download_start);
 			let current_download = body.substring(current_download_start, current_download_end);
 
-			console.log(current_download);
 			let url = current_download;
 
 			resolve(url);
