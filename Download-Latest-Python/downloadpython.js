@@ -53,7 +53,7 @@ async function download() {
 					console.log(err);
 				}
 				break;
-			}
+			}[]
 		}
 		
 
