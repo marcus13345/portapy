@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "python": "0.0.4",
-    "request": "2.88.0"
+    "request": "^2.88.0"
   },
   "homepage": "https://github.com/marcus13345/pythonjs#readme"
 }
