@@ -2,8 +2,9 @@
 
 const path = require('path');
 let pythonPath = path.resolve(__dirname, '..', 'Python', 'python.exe');
+// const versions = require('./')
 
-// console.log(process.argv);
+let args = process.argv.slice(2);
 
-require('child_process').spawn(pythonPath, [], {stdio: 'inherit'});
+require('child_process').spawn(pythonPath, args, {stdio: 'inherit'});
 
