@@ -1,6 +1,6 @@
 {
   "name": "portapy",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,17 +14,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/marcus13345/pythonjs.git"
+    "url": "git+https://github.com/marcus13345/portapy.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/marcus13345/pythonjs/issues"
+    "url": "https://github.com/marcus13345/portapy/issues"
   },
   "dependencies": {
     "minimist": "^1.2.0",
     "python": "0.0.4",
     "request": "^2.88.0"
   },
-  "homepage": "https://github.com/marcus13345/pythonjs#readme"
+  "homepage": "https://github.com/marcus13345/portapy#readme"
 }

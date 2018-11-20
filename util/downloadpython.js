@@ -50,6 +50,11 @@ async function download() {
 						stdio: "inherit"
 					});
 
+					let files = fs.readdirSync(targetPath);
+					files.forEach(function (element) {
+						console.log(element);
+					});
+
 					console.log("Python Installed!");
 				} catch (err) {
 					console.log(err);
