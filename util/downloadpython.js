@@ -7,6 +7,7 @@ const fs = require('fs');
 const os = require('os');
 const {execSync} = require('child_process');
 const path = require('path');
+const copydir = require('copy-dir');
 
 async function download() {
 
@@ -19,6 +20,9 @@ async function download() {
 		} catch(e) {'';}
 		try {
 			fs.mkdirSync('Python');
+		} catch(e) {'';}
+		try {
+			fs.mkdirSync('Temp-Python');
 		} catch(e) {'';}
 		try {
 			fs.writeFileSync('.installerLocation', filename);
@@ -45,26 +49,31 @@ async function download() {
 			case 'win32': {
 				try {
 					let installerPath = path.join(__dirname, '..', 'Python-Installer/', filename);
+					let tempPath = path.join(__dirname, '..', 'Temp-Python/');
 					let targetPath = path.join(__dirname, '..', 'Python/');
-					execSync(`${installerPath} /passive DefaultJustForMeTargetDir=${targetPath}`, {
+					execSync(`${installerPath} /passive DefaultJustForMeTargetDir=${tempPath}`, {
 						stdio: "inherit"
 					});
+					
+					console.log("Creating Portable Python Directory");
 
-					let files = fs.readdirSync(targetPath);
-					files.forEach(function (element) {
-						console.log(element);
+					copydir.sync(tempPath, targetPath);
+					console.log("Portable Directory Created!");
+
+					console.log("Uninstalling Unnecessary Python Files");
+
+					execSync(`${installerPath} /passive /uninstall`, {
+						stdio: 'inherit'
 					});
+					fs.rmdirSync(tempPath);
 
-					console.log("Python Installed!");
+					console.log("PordaPy Installed!");
 				} catch (err) {
 					console.log(err);
 				}
 				break;
 			}[]
 		}
-		
-
-
 }
 
 function getPythonDownloadLink() {

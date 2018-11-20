@@ -1,7 +1,7 @@
 // pip install --target=lib numpy six pypng pyplatec
 let {execSync} = require('child_process');
 
-let pythonDownloader = require('./util/downloadpython.js')
+let pythonDownloader = require('../util/downloadpython.js')
 
 
 pythonDownloader.download();
