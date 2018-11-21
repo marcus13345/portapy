@@ -14,7 +14,6 @@ async function download() {
 		
 		let url = await getPythonDownloadLink();
 		let filename = path.parse(url).base;
-
 		try {
 			fs.mkdirSync('Python-Installer');
 		} catch(e) {'';}
@@ -31,7 +30,6 @@ async function download() {
 
 		let out_file = `Python-Installer/${filename}`
 
-		
 		await new Promise(resolve => {
 			request({
 				uri: url,
@@ -65,6 +63,7 @@ async function download() {
 					execSync(`${installerPath} /passive /uninstall`, {
 						stdio: 'inherit'
 					});
+
 					fs.rmdirSync(tempPath);
 
 					console.log("PordaPy Installed!");
