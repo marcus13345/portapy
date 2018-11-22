@@ -11,68 +11,68 @@ const copydir = require('copy-dir');
 
 async function download() {
 
-		
-		let url = await getPythonDownloadLink();
-		let filename = path.parse(url).base;
-		try {
-			fs.mkdirSync('Python-Installer');
-		} catch(e) {'';}
-		try {
-			fs.mkdirSync('Python');
-		} catch(e) {'';}
-		try {
-			fs.mkdirSync('Temp-Python');
-		} catch(e) {'';}
-		try {
-			fs.writeFileSync('.installerLocation', filename);
-		} catch(e) {'';}
-		// let installSettings = fs.readFileSync('unattend.xml');
+	
+	let url = await getPythonDownloadLink();
+	let filename = path.parse(url).base;
+	try {
+		fs.mkdirSync('Python-Installer');
+	} catch(e) {'';}
+	try {
+		fs.mkdirSync('Python');
+	} catch(e) {'';}
+	try {
+		fs.mkdirSync('Temp-Python');
+	} catch(e) {'';}
+	try {
+		fs.writeFileSync('.installerLocation', filename);
+	} catch(e) {'';}
+	// let installSettings = fs.readFileSync('unattend.xml');
 
-		let out_file = `Python-Installer/${filename}`
+	let out_file = `Python-Installer/${filename}`
 
-		await new Promise(resolve => {
-			request({
-				uri: url,
-				encoding: null
-			}, function (error, response, body) {
-				fs.writeFileSync(out_file, body, {});
-				resolve();
-			});
+	await new Promise(resolve => {
+		request({
+			uri: url,
+			encoding: null
+		}, function (error, response, body) {
+			fs.writeFileSync(out_file, body, {});
+			resolve();
 		});
+	});
 
-		console.log('Download Complete!');
+	console.log('Download Complete!');
 
-		switch (os.platform())
-		{
-			case 'win32': {
-				try {
-					let installerPath = path.join(__dirname, '..', 'Python-Installer/', filename);
-					let tempPath = path.join(__dirname, '..', 'Temp-Python/');
-					let targetPath = path.join(__dirname, '..', 'Python/');
-					execSync(`${installerPath} /passive DefaultJustForMeTargetDir=${tempPath}`, {
-						stdio: "inherit"
-					});
-					
-					console.log("Creating Portable Python Directory");
+	switch (os.platform())
+	{
+		case 'win32': {
+			try {
+				let installerPath = path.join(__dirname, '..', 'Python-Installer/', filename);
+				let tempPath = path.join(__dirname, '..', 'Temp-Python/');
+				let targetPath = path.join(__dirname, '..', 'Python/');
+				execSync(`${installerPath} /passive DefaultJustForMeTargetDir=${tempPath}`, {
+					stdio: "inherit"
+				});
+				
+				console.log("Creating Portable Python Directory");
 
-					copydir.sync(tempPath, targetPath);
-					console.log("Portable Directory Created!");
+				copydir.sync(tempPath, targetPath);
+				console.log("Portable Directory Created!");
 
-					console.log("Uninstalling Unnecessary Python Files");
+				console.log("Uninstalling Unnecessary Python Files");
 
-					execSync(`${installerPath} /passive /uninstall`, {
-						stdio: 'inherit'
-					});
+				execSync(`${installerPath} /passive /uninstall`, {
+					stdio: 'inherit'
+				});
 
-					fs.rmdirSync(tempPath);
+				fs.rmdirSync(tempPath);
 
-					console.log("PordaPy Installed!");
-				} catch (err) {
-					console.log(err);
-				}
-				break;
-			}[]
+				console.log("PordaPy Installed!");
+			} catch (err) {
+				console.log(err);
+			}
+			break;
 		}
+	}
 }
 
 function getPythonDownloadLink() {
