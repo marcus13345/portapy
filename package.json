@@ -11,7 +11,8 @@
   },
   "bin": {
     "python": "bin/python.js",
-    "portapy": "index.js"
+    "portapy": "index.js",
+    "pvm": "bin/pvm.js"
   },
   "repository": {
     "type": "git",
