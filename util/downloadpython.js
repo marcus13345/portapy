@@ -72,6 +72,39 @@ async function download() {
 			}
 			break;
 		}
+		case 'darwin': {
+			try {
+				let installerPath = path.join(__dirname, '..', 'Python-Installer/', filename);
+				let tempPath = path.join(__dirname, '..', 'Temp-Python/');
+				let targetPath = path.join(__dirname, '..', 'Python/');
+				execSync(`${installerPath} /passive DefaultJustForMeTargetDir=${tempPath}`, {
+					stdio: "inherit"
+				});
+				
+				console.log("Creating Portable Python Directory");
+
+				copydir.sync(tempPath, targetPath);
+				console.log("Portable Directory Created!");
+
+				console.log("Uninstalling Unnecessary Python Files");
+
+				execSync(`${installerPath} /passive /uninstall`, {
+					stdio: 'inherit'
+				});
+
+				fs.rmdirSync(tempPath);
+
+				console.log("PordaPy Installed!");
+			} catch (err) {
+				console.log(err);
+			}
+			break;
+		}
+		// case 'darwin': {
+		// 	try {
+				
+		// 	}
+		// }
 	}
 }
 
@@ -102,6 +135,7 @@ function getPythonDownloadLink() {
 			let current_download = body.substring(current_download_start, current_download_end);
 
 			let url = current_download;
+			console.log(url)
 
 			resolve(url);
 		});
