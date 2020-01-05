@@ -18,7 +18,7 @@ async function getDownloadLink(v) {
 	switch (os.platform())
 	{
 		case 'darwin':
-			extArr = ['.exe','.msi']
+			// extArr = ['.exe','.msi']
 			break;
 		case 'linux':
 			break;
@@ -29,19 +29,36 @@ async function getDownloadLink(v) {
 			break;
 	}
 
-	await new Promise(resolve => {
+	let available_download_links = await new Promise(resolve => {
 		request({
 			uri: "https://www.python.org/ftp/python/" + v.toString() + "/",
-		}, function(error, response, body) {
-			console.log(body);
-			resolve(body);
+		}, function (error, response, body) {
+			// const re = /"\n"/g;
+			tempArr = body.split(/\r?\n/);
+			let availLinks = [];
+			tempArr.forEach(function (item) {
+				if (item.includes('<a href="py')) {
+					let substr_start = item.indexOf('">', 0) + 2;
+					let substr_end = item.indexOf('</a>', substr_start);
+					let substr = item.substring(substr_start, substr_end);
+					availLinks.push(substr);
+				}
+			})
+			// console.log(availLinks);
+			resolve(availLinks);
+		})
+	});
+
+	let py_executable_link = await new Promise(resolve => {
+		extArr.forEach(function (item) {
+			let filename = "python-" + v.toString() + item.toString();
+			if (available_download_links.includes(filename)) {
+				resolve(filename);
+			}
 		})
 	})
 
-	let i = 0
-	for(i = 0; i < extArr.length; i++){
-	
-	}
+	return "https://www.python.org/ftp/python/" + v.toString() + "/" + py_executable_link.toString();
 }
 
 let versions = new Promise(resolve => {
