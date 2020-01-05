@@ -12,16 +12,35 @@ async function validateVersion(v) {
 }
 
 async function getDownloadLink(v) {
+
+	let extArr = [];
+
 	switch (os.platform())
 	{
 		case 'darwin':
+			extArr = ['.exe','.msi']
 			break;
 		case 'linux':
 			break;
 		case 'win32':
-			return 'https://www.python.org/ftp/python/' + v.toString() + '/python-' + v.toString() + '.exe';
+			extArr = ['.exe','.msi']
+			break;
 		default:
 			break;
+	}
+
+	await new Promise(resolve => {
+		request({
+			uri: "https://www.python.org/ftp/python/" + v.toString() + "/",
+		}, function(error, response, body) {
+			console.log(body);
+			resolve(body);
+		})
+	})
+
+	let i = 0
+	for(i = 0; i < extArr.length; i++){
+	
 	}
 }
 
@@ -70,9 +89,9 @@ let current = new Promise(resolve => {
 		});
 	});
 
-current.then(value => {
-	console.log(value);
-})
+// current.then(value => {
+// 	console.log(value);
+// })
 
 
 // versions.then(value => {

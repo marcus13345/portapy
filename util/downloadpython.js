@@ -25,12 +25,15 @@ async function download(ver) {
 		console.log("Version of python not available");
 	}
 
-
+	
 	if (version !== "") {
-		console.log(await pyversion.getDownloadLink(version));
+		console.log(version);
+		pyversion.getDownloadLink(version).then(value => {
+			console.log(value);
+		});
 	}
 
-	console.log(url);
+	// console.log(url);
 	
 	// let url = await getPythonDownloadLink();
 	// let filename = path.parse(url).base;
